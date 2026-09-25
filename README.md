@@ -237,30 +237,33 @@ The webhook authentication is handled automatically using the `N8N_WEBHOOK_USERN
 
 ### Workflow Management
 
-- `workflow_list`: List all workflows
-- `workflow_get`: Get details of a specific workflow
-- `workflow_create`: Create a new workflow
-- `workflow_update`: Update an existing workflow
-- `workflow_delete`: Delete a workflow
-- `workflow_activate`: Activate a workflow
-- `workflow_deactivate`: Deactivate a workflow
+- `list_workflows`: List all workflows
+- `get_workflow`: Get details of a specific workflow
+- `create_workflow`: Create a new workflow
+- `update_workflow`: Update an existing workflow (note: `active` and `tags` are read-only in n8n's API and are ignored if passed here — use `activate_workflow`/`deactivate_workflow` instead)
+- `delete_workflow`: Delete a workflow
+- `activate_workflow`: Activate a workflow
+- `deactivate_workflow`: Deactivate a workflow
 
 ### Execution Management
 
-- `execution_run`: Execute a workflow via the API
 - `run_webhook`: Execute a workflow via a webhook
-- `execution_get`: Get details of a specific execution
-- `execution_list`: List executions for a workflow
-- `execution_stop`: Stop a running execution
+- `list_executions`: List executions, optionally filtered by `workflowId` and/or `status`
+- `get_execution`: Get details of a specific execution
+- `delete_execution`: Delete a specific execution
+
+> **Note:** n8n's public REST API does not currently expose an endpoint to trigger a workflow run
+> directly (only via webhook) or to stop an in-progress execution, so there are no `execution_run` or
+> `execution_stop` tools. `run_webhook` is the supported way to start a workflow from this server.
 
 ## Resources
 
 The server provides the following resources:
 
-- `n8n://workflows/list`: List of all workflows
-- `n8n://workflow/{id}`: Details of a specific workflow
-- `n8n://executions/{workflowId}`: List of executions for a workflow
-- `n8n://execution/{id}`: Details of a specific execution
+- `n8n://workflows`: List of all workflows
+- `n8n://workflows/{id}`: Details of a specific workflow
+- `n8n://execution-stats`: Aggregate statistics (success rate, average duration, top workflows) across all executions
+- `n8n://executions/{id}`: Details of a specific execution
 
 ## Roadmap
 
@@ -379,7 +382,7 @@ If you're excited about the intersection of AI and workflow automation, and you'
 2.  You can open an issue titled "Co-maintainer Application" to formally apply, or simply start contributing to existing issues.
 3.  Alternatively, feel free to reach out to the existing maintainers if you have questions.
 
-Let’s build the future of AI-powered workflow automation together! 🙌
+Let’s build the future of AI-powered workflow automation together! 🎉
 
 **Thanks to the community for the support!**
 [![Star History Chart](https://api.star-history.com/svg?repos=leonardsellem/n8n-mcp-server&type=Date)](https://www.star-history.com/#leonardsellem/n8n-mcp-server&Date)
